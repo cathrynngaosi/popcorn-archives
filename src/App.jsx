@@ -2,19 +2,25 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Landing from "./pages/Landing";
 import SearchResults from "./pages/SearchResults";
 import MyList from "./pages/MyList";
+import AppLayout from "./ui/AppLayout";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Landing />,
-  },
-  {
-    path: "/search/:searchParams",
-    element: <SearchResults />,
-  },
-  {
-    path: "/my-list",
-    element: <MyList />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Landing />,
+      },
+      {
+        path: "/search/:searchParams",
+        element: <SearchResults />,
+      },
+      {
+        path: "/my-list",
+        element: <MyList />,
+      },
+    ],
   },
 ]);
 
