@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },
+      colors: {
+        lightRed: "#D13E3E",
+      },
     },
   },
   plugins: [],
