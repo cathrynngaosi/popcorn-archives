@@ -1,8 +1,10 @@
+import { NavLink } from "react-router-dom";
+
 function Navbar() {
   return (
-    <div className="flex bg-lightRed p-4 justify-between items-center text-white">
+    <div className="relative flex bg-red-800 p-4 justify-between items-center text-white">
       <div>
-        <h1>🍿 Popcorn Archives</h1>
+        <NavLink to="/">🍿 Popcorn Archives </NavLink>
       </div>
       <div className="flex space-x-6 items-center">
         <input
@@ -10,7 +12,7 @@ function Navbar() {
           placeholder="Search"
           className="focus:outline-none py-1 px-3 rounded-lg"
         />
-        <h1>My List</h1>
+        <NavLink to="/my-list"> My List </NavLink>
       </div>
     </div>
   );
