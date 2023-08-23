@@ -10,15 +10,15 @@ function Home() {
   useEffect(() => {
     const intervalId = setInterval(
       () => setIndex((index) => index + 1),
-      2000 // every 3 seconds
+      2000, // every 3 seconds
     );
     return () => clearTimeout(intervalId);
   }, []);
 
   return (
-    <div className="bg-hero-image bg-cover bg-no-repeat h-[92%] relative">
-      <div className="absolute bg-zinc-950/75 h-full w-full flex flex-col items-center justify-center text-slate-100 p-5 space-y-3">
-        <h1 className="text-7xl font-medium text-center">
+    <div className="relative h-[92%] bg-hero-image bg-cover bg-no-repeat">
+      <div className="absolute flex h-full w-full flex-col items-center justify-center space-y-3 bg-zinc-950/75 p-5 text-red-50 ">
+        <h1 className="text-center text-7xl font-medium">
           Keep track of your favorite {""}
           <span>
             <TextTransition inline="true">
@@ -27,13 +27,14 @@ function Home() {
           </span>
         </h1>
 
-        <h1 className=" tracking-wide leading-tight w-4/5 text-center text-4xl py-5">
-          Create a list for your all your popcorn sessions now!
+        <h1 className="w-4/5 py-5 text-center text-3xl leading-tight tracking-wide text-red-100">
+          Start curating lists for all your popcorn-filled entertainment moments
+          today!
         </h1>
 
         <Link
           to="/my-list"
-          className="bg-red-800 py-3 px-8 uppercase rounded-lg hover:scale-105 duration-75"
+          className="rounded-lg bg-red-800 px-8 py-3 uppercase duration-75 hover:scale-105"
         >
           Get Started
         </Link>
