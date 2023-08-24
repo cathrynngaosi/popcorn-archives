@@ -16,7 +16,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="relative h-[92%] bg-hero-image bg-cover bg-no-repeat">
+    <div className="relative h-screen bg-hero-image bg-cover bg-no-repeat">
       <div className="absolute flex h-full w-full flex-col items-center justify-center space-y-3 bg-zinc-950/75 p-5 text-red-50 ">
         <h1 className="text-center text-7xl font-medium">
           Keep track of your favorite {""}
@@ -32,12 +32,20 @@ function Home() {
           today!
         </h1>
 
-        <Link
-          to="/my-list"
-          className="rounded-lg bg-red-800 px-8 py-3 uppercase duration-75 hover:scale-105"
-        >
-          Get Started
-        </Link>
+        <div className="flex flex-row space-x-2">
+          <Link
+            to="/my-lists"
+            className="rounded-lg bg-red-800 px-8 py-3 uppercase duration-75 hover:scale-105"
+          >
+            Create Lists
+          </Link>
+          <Link
+            to="/search"
+            className="rounded-lg bg-zinc-900 px-8 py-3 uppercase duration-75 hover:scale-105"
+          >
+            Search Films
+          </Link>
+        </div>
       </div>
     </div>
   );
