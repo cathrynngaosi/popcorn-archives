@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
+import SearchBar from "../components/SearchBar";
 
 function AppLayout() {
   return (
-    <div className="h-screen bg-zinc-900">
-      <Navbar />
+    <div className="p-10">
+      <SearchBar />
       <Outlet />
     </div>
   );

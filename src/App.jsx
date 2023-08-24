@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Landing from "./pages/Landing";
-import SearchResults from "./pages/SearchResults";
+import SearchResults, { loader as searchLoader } from "./pages/SearchResults";
 import MyList from "./pages/MyList";
 import AppLayout from "./ui/AppLayout";
+import SearchLayout from "./ui/SearchLayout";
 
 const router = createBrowserRouter([
   {
@@ -13,11 +14,20 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "/search/:searchParams",
-        element: <SearchResults />,
+        element: <SearchLayout />,
+        children: [
+          {
+            path: "/search",
+          },
+          {
+            path: "/search/:searchParams",
+            element: <SearchResults />,
+            loader: searchLoader,
+          },
+        ],
       },
       {
-        path: "/my-list",
+        path: "/my-lists",
         element: <MyList />,
       },
     ],
