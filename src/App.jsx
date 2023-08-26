@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ListProvider } from "../src/context/ListContext";
 import Landing from "./pages/Landing";
 import SearchResults, { loader as searchLoader } from "./pages/SearchResults";
 import MyList from "./pages/MyList";
@@ -43,7 +44,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ListProvider>
+        <RouterProvider router={router} />
+      </ListProvider>
+    </>
+  );
 }
 
 export default App;
