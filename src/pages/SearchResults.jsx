@@ -6,7 +6,7 @@ function SearchResults() {
   const results = useLoaderData();
 
   return (
-    <div className="mt-5 grid cursor-pointer grid-cols-2 items-center gap-4 md:grid-cols-6">
+    <div className="mt-5 grid grid-cols-2 items-center gap-4 md:grid-cols-6">
       {results &&
         results.map((movie) => <MovieCard movie={movie} key={movie.imdbID} />)}
     </div>

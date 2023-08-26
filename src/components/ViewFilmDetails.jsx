@@ -2,9 +2,22 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { getMovieDetails } from "../services/apiMovies";
 import { FaBookmark, FaHeart, FaStar } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
+import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 function ViewFilmDetails() {
+  const [topMovies, setTopMovies] = useLocalStorageState([], "topMovies");
+  const [topSeries, setTopSeries] = useLocalStorageState([], "topSeries");
+  const [moviesBucketlist, setMoviesBucketlist] = useLocalStorageState(
+    [],
+    "moviesBucketlist",
+  );
+  const [seriesBucketlist, setSeriesBucketlist] = useLocalStorageState(
+    [],
+    "seriesBucketlist",
+  );
+
   const navigate = useNavigate();
+
   const {
     Title,
     Plot,
@@ -18,10 +31,28 @@ function ViewFilmDetails() {
     Writer,
     Actors,
     imdbRating,
+    imdbID,
   } = useLoaderData();
 
   function moveBack() {
     navigate(-1);
+  }
+
+  function handleAddTopMovies(movie) {
+    setTopMovies((topMovies) => [...topMovies, movie]);
+  }
+
+  function handleAddMoviesBucketlist(movie) {
+    console.log(movie);
+    setMoviesBucketlist((topMovies) => [...topMovies, movie]);
+  }
+
+  function handleAddTopSeries(series) {
+    setTopSeries((topMovies) => [...topMovies, series]);
+  }
+
+  function handleAddSeriesBucketlist(series) {
+    setSeriesBucketlist((topMovies) => [...topMovies, series]);
   }
 
   return (
@@ -35,17 +66,17 @@ function ViewFilmDetails() {
         </h1>
       </div>
 
-      <div className="mx-auto flex w-full space-x-6 px-5 py-10">
+      <div className="mx-auto flex w-full flex-col space-y-6 px-3 py-10 md:flex-row md:space-x-6 md:space-y-0 md:px-5">
         <div className="">
-          <img src={Poster} alt="" className="h-full max-w-fit" />
+          <img src={Poster} alt="" className="h-full w-full md:max-w-fit" />
         </div>
 
-        <div className="w-2/4 space-y-4 text-white">
+        <div className="w-full space-y-4 text-white md:w-2/4 ">
           <div className="flex items-start justify-between">
             <h1 className="text-5xl font-medium tracking-wide ">{Title}</h1>
           </div>
 
-          <div className="flex space-x-1">
+          <div className="flex md:space-x-1">
             {Genre.split(",").map((genre) => {
               return (
                 <p
@@ -106,24 +137,85 @@ function ViewFilmDetails() {
         </div>
 
         <div className="space-y-2">
-          <button
-            className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-            type="button"
-          >
-            <span className="mx-auto flex items-center text-center">
-              <FaHeart className="mb-px mr-2 text-xs" />
-              Add to My Top {Type === "movie" ? "Movies" : "Series"}
-            </span>
-          </button>
-          <button
-            className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-            type="button"
-          >
-            <span className="mx-auto flex items-center text-center">
-              <FaBookmark className="mb-px mr-2 text-xs" />
-              Add to {Type === "movie" ? "Movies" : "Series"} Bucketlist
-            </span>
-          </button>
+          {Type === "movie" ? (
+            <>
+              <button
+                className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
+                type="button"
+                onClick={() =>
+                  handleAddTopMovies({
+                    Title,
+                    imdbID,
+                    Year,
+                    Runtime,
+                    imdbRating,
+                  })
+                }
+              >
+                <span className="mx-auto flex items-center text-center">
+                  <FaHeart className="mb-px mr-2 text-xs" />
+                  Add to My Top Movies
+                </span>
+              </button>
+              <button
+                className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
+                type="button"
+                onClick={() =>
+                  handleAddMoviesBucketlist({
+                    Title,
+                    imdbID,
+                    Year,
+                    Runtime,
+                    imdbRating,
+                  })
+                }
+              >
+                <span className="mx-auto flex items-center text-center">
+                  <FaBookmark className="mb-px mr-2 text-xs" />
+                  Add to Movie Bucketlist
+                </span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
+                type="button"
+                onClick={() =>
+                  handleAddTopSeries({
+                    Title,
+                    imdbID,
+                    Year,
+                    Runtime,
+                    imdbRating,
+                  })
+                }
+              >
+                <span className="mx-auto flex items-center text-center">
+                  <FaHeart className="mb-px mr-2 text-xs" />
+                  Add to My Top Series
+                </span>
+              </button>
+              <button
+                className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
+                type="button"
+                onClick={() =>
+                  handleAddSeriesBucketlist({
+                    Title,
+                    imdbID,
+                    Year,
+                    Runtime,
+                    imdbRating,
+                  })
+                }
+              >
+                <span className="mx-auto flex items-center text-center">
+                  <FaBookmark className="mb-px mr-2 text-xs" />
+                  Add to Series Bucketlist
+                </span>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

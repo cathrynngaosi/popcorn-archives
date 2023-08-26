@@ -11,7 +11,11 @@ function MovieCard({ movie }) {
   }
 
   return (
-    <div key={movie.imdbID} onClick={() => handleSelectMovie(movie.imdbID)}>
+    <div
+      key={movie.imdbID}
+      onClick={() => handleSelectMovie(movie.imdbID)}
+      className="hover:cursor-pointer"
+    >
       <img
         src={movie.Poster}
         alt=""
