@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { getMovieDetails } from "../services/apiMovies";
+import { getMovies } from "../services/apiMovies";
 import MovieCard from "../components/MovieCard";
 
 function SearchResults() {
@@ -14,8 +14,8 @@ function SearchResults() {
 }
 
 export async function loader({ params }) {
-  const details = await getMovieDetails(params.searchParams);
-  return details;
+  const movies = await getMovies(params.searchParams);
+  return movies;
 }
 
 export default SearchResults;
