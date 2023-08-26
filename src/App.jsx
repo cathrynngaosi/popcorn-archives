@@ -4,6 +4,9 @@ import SearchResults, { loader as searchLoader } from "./pages/SearchResults";
 import MyList from "./pages/MyList";
 import AppLayout from "./ui/AppLayout";
 import SearchLayout from "./ui/SearchLayout";
+import ViewFilmDetails, {
+  loader as movieDetailsLoader,
+} from "./components/ViewFilmDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,11 @@ const router = createBrowserRouter([
             loader: searchLoader,
           },
         ],
+      },
+      {
+        path: "/title/:imdbID",
+        element: <ViewFilmDetails />,
+        loader: movieDetailsLoader,
       },
       {
         path: "/my-lists",
