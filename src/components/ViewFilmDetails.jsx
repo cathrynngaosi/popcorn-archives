@@ -1,22 +1,22 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { getMovieDetails } from "../services/apiMovies";
-import { FaBookmark, FaHeart, FaStar } from "react-icons/fa";
+import { FaBookmark, FaCheck, FaHeart, FaMinus, FaStar } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { useList } from "../context/ListContext";
 
 function ViewFilmDetails() {
-  const [topMovies, setTopMovies] = useLocalStorageState([], "topMovies");
-  const [topSeries, setTopSeries] = useLocalStorageState([], "topSeries");
-  const [moviesBucketlist, setMoviesBucketlist] = useLocalStorageState(
-    [],
-    "moviesBucketlist",
-  );
-  const [seriesBucketlist, setSeriesBucketlist] = useLocalStorageState(
-    [],
-    "seriesBucketlist",
-  );
-
   const navigate = useNavigate();
+
+  const {
+    topMovies,
+    setTopMovies,
+    topSeries,
+    setTopSeries,
+    moviesBucketlist,
+    setMoviesBucketlist,
+    seriesBucketlist,
+    setSeriesBucketlist,
+  } = useList();
 
   const {
     Title,
@@ -34,25 +34,67 @@ function ViewFilmDetails() {
     imdbID,
   } = useLoaderData();
 
+  const listed =
+    Type === "movie"
+      ? topMovies.find((movie) => movie.imdbID === imdbID) !== undefined
+        ? "My Top Movies"
+        : moviesBucketlist.find((movie) => movie.imdbID === imdbID) !==
+            undefined && "Movies Bucketlist"
+      : topSeries.find((series) => series.imdbID === imdbID) !== undefined
+      ? "My Top Series"
+      : seriesBucketlist.find((series) => series.imdbID === imdbID) !==
+          undefined && "Series Bucketlist";
+
   function moveBack() {
     navigate(-1);
   }
 
-  function handleAddTopMovies(movie) {
-    setTopMovies((topMovies) => [...topMovies, movie]);
+  function handleAddToList(film, type) {
+    switch (type) {
+      case "My Top Movies":
+        setTopMovies((topMovies) => [...topMovies, film]);
+        break;
+
+      case "Movies Bucketlist":
+        setMoviesBucketlist((movieBucketlist) => [...movieBucketlist, film]);
+        break;
+
+      case "My Top Series":
+        setTopSeries((topSeries) => [...topSeries, film]);
+        break;
+
+      case "Series Bucketlist":
+        setSeriesBucketlist((seriesBucketlist) => [...seriesBucketlist, film]);
+        break;
+    }
   }
 
-  function handleAddMoviesBucketlist(movie) {
-    console.log(movie);
-    setMoviesBucketlist((topMovies) => [...topMovies, movie]);
-  }
+  function handleDeleteFromList(id, type) {
+    switch (type) {
+      case "My Top Movies":
+        setTopMovies((topMovies) =>
+          topMovies.filter((movie) => movie.imdbID !== imdbID),
+        );
+        break;
 
-  function handleAddTopSeries(series) {
-    setTopSeries((topMovies) => [...topMovies, series]);
-  }
+      case "Movies Bucketlist":
+        setMoviesBucketlist((movieBucketlist) =>
+          movieBucketlist.filter((movie) => movie.imdbID !== imdbID),
+        );
+        break;
 
-  function handleAddSeriesBucketlist(series) {
-    setSeriesBucketlist((topMovies) => [...topMovies, series]);
+      case "My Top Series":
+        setTopSeries((topSeries) =>
+          topSeries.filter((series) => series.imdbID !== imdbID),
+        );
+        break;
+
+      case "Series Bucketlist":
+        setSeriesBucketlist((seriesBucketlist) =>
+          seriesBucketlist.filter((series) => series.imdbID !== imdbID),
+        );
+        break;
+    }
   }
 
   return (
@@ -111,10 +153,8 @@ function ViewFilmDetails() {
             {Type === "movie" ? (
               <>
                 <div className="space-x-1">
-                  <s30n className="font-light text-gray-100">
-                    Directed by:{" "}
-                  </s30n>
-                  <span className="font-medium text-stone-50">{Writer} </span>
+                  <span className="font-light text-gray-100">Directed by:</span>
+                  <span className="font-medium text-stone-50">{Director} </span>
                 </div>
                 <div className="space-x-1">
                   <span className="font-light text-gray-300">Written by: </span>
@@ -137,19 +177,38 @@ function ViewFilmDetails() {
         </div>
 
         <div className="space-y-2">
-          {Type === "movie" ? (
+          {listed !== false ? (
+            <>
+              <div className="flex w-full cursor-default items-center space-x-2 rounded bg-white px-6 py-3 text-sm uppercase text-black">
+                <span className="mx-auto flex items-center text-center">
+                  <FaCheck className="mb-px mr-2 text-xs" />
+                  <h1>Added to {listed}</h1>
+                </span>
+              </div>
+              <button
+                className="flex w-full cursor-pointer items-center space-x-2 rounded bg-zinc-700 px-6 py-3 text-sm uppercase text-white"
+                onClick={() => handleDeleteFromList(imdbID, listed)}
+              >
+                <FaMinus />
+                <h1>Remove from list</h1>
+              </button>
+            </>
+          ) : Type === "movie" ? (
             <>
               <button
                 className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddTopMovies({
-                    Title,
-                    imdbID,
-                    Year,
-                    Runtime,
-                    imdbRating,
-                  })
+                  handleAddToList(
+                    {
+                      Title,
+                      imdbID,
+                      Year,
+                      Runtime,
+                      imdbRating,
+                    },
+                    "My Top Movies",
+                  )
                 }
               >
                 <span className="mx-auto flex items-center text-center">
@@ -161,13 +220,16 @@ function ViewFilmDetails() {
                 className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddMoviesBucketlist({
-                    Title,
-                    imdbID,
-                    Year,
-                    Runtime,
-                    imdbRating,
-                  })
+                  handleAddToList(
+                    {
+                      Title,
+                      imdbID,
+                      Year,
+                      Runtime,
+                      imdbRating,
+                    },
+                    "Movies Bucketlist",
+                  )
                 }
               >
                 <span className="mx-auto flex items-center text-center">
@@ -182,13 +244,16 @@ function ViewFilmDetails() {
                 className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddTopSeries({
-                    Title,
-                    imdbID,
-                    Year,
-                    Runtime,
-                    imdbRating,
-                  })
+                  handleAddToList(
+                    {
+                      Title,
+                      imdbID,
+                      Year,
+                      Runtime,
+                      imdbRating,
+                    },
+                    "My Top Series",
+                  )
                 }
               >
                 <span className="mx-auto flex items-center text-center">
@@ -200,13 +265,16 @@ function ViewFilmDetails() {
                 className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddSeriesBucketlist({
-                    Title,
-                    imdbID,
-                    Year,
-                    Runtime,
-                    imdbRating,
-                  })
+                  handleAddToList(
+                    {
+                      Title,
+                      imdbID,
+                      Year,
+                      Runtime,
+                      imdbRating,
+                    },
+                    "Series Bucketlist",
+                  )
                 }
               >
                 <span className="mx-auto flex items-center text-center">
