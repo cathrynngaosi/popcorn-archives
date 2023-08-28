@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         loader: movieDetailsLoader,
       },
       {
-        path: "/my-lists",
+        path: "/my-lists/:listName",
         element: <MyList />,
       },
     ],

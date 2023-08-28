@@ -7,7 +7,7 @@ function Navbar() {
         <NavLink to="/">🍿 Popcorn Archives </NavLink>
       </div>
       <div className="mr-3 flex items-center">
-        <NavLink to="/my-lists"> My List </NavLink>
+        <NavLink to="/my-lists/top-movies"> My List </NavLink>
       </div>
     </div>
   );
