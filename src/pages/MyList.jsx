@@ -5,7 +5,7 @@ import { useState } from "react";
 import MovieCard from "../components/MovieCard";
 import LoadingScreen from "../components/LoadingScreen";
 import EmptyList from "../components/EmptyList";
-import MovieListCard from "../components/MovieListCard";
+import MovieListContainer from "../components/MovieListContainer";
 
 function MyList() {
   const { topMovies, topSeries, moviesBucketlist, seriesBucketlist } =
@@ -36,7 +36,7 @@ function MyList() {
 
         <TabPanel>
           {topMovies.length > 0 ? (
-            <MovieListCard list={topMovies} />
+            <MovieListContainer type="list" list={topMovies} />
           ) : (
             <EmptyList />
           )}
@@ -44,7 +44,7 @@ function MyList() {
 
         <TabPanel>
           {topSeries.length > 0 ? (
-            <MovieListCard list={topSeries} />
+            <MovieListContainer type="list" list={topSeries} />
           ) : (
             <EmptyList />
           )}
@@ -52,7 +52,7 @@ function MyList() {
 
         <TabPanel>
           {moviesBucketlist.length > 0 ? (
-            <MovieListCard list={moviesBucketlist} />
+            <MovieListContainer type="list" list={moviesBucketlist} />
           ) : (
             <EmptyList />
           )}
@@ -60,7 +60,7 @@ function MyList() {
 
         <TabPanel>
           {seriesBucketlist.length > 0 ? (
-            <MovieListCard list={seriesBucketlist} />
+            <MovieListContainer type="list" list={seriesBucketlist} />
           ) : (
             <EmptyList />
           )}
