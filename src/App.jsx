@@ -8,14 +8,17 @@ import SearchLayout from "./ui/SearchLayout";
 import ViewFilmDetails, {
   loader as movieDetailsLoader,
 } from "./pages/ViewFilmDetails";
+import PageNotFound from "./pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <PageNotFound />,
     children: [
       {
         path: "/",
         element: <Landing />,
+        errorElement: <PageNotFound />,
       },
       {
         element: <SearchLayout />,
