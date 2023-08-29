@@ -1,17 +1,21 @@
-function MovieListCard({ film }) {
-  const { Title, Runtime, Year, imdbID, Poster, imdbRating } = film;
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MovieCard from "./MovieCard";
+
+function MovieListCard({ list }) {
+  const navigate = useNavigate();
+  const [selectMovie, setSelectMovie] = useState();
+
+  function handleSelectMovie(id) {
+    setSelectMovie(id);
+    navigate(`/title/${id}`);
+  }
 
   return (
-    <div className="flex space-x-2 rounded-xl bg-zinc-800 p-3 text-white">
-      <div>
-        <img src={Poster} alt="" className="w-12" />
-      </div>
-      <div className="space-y-1">
-        <p className="text-lg">{Title}</p>
-        <p className="text-sm">
-          {Year} • {Runtime} • {imdbRating} IMDB Rating
-        </p>
-      </div>
+    <div className="grid min-w-full grid-cols-4 gap-4 gap-y-2 p-4 md:grid-cols-8">
+      {list.map((film) => {
+        return <MovieCard movie={film} key={film.imdbID} />;
+      })}
     </div>
   );
 }
