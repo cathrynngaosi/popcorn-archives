@@ -1,8 +1,8 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useList } from "../context/ListContext";
-import { Link, NavLink } from "react-router-dom";
-import MovieListCard from "../components/MovieListCard";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import MovieCard from "../components/MovieCard";
 
 function MyList() {
   const { topMovies, topSeries, moviesBucketlist, seriesBucketlist } =
@@ -31,46 +31,48 @@ function MyList() {
           <TabPanel
             className={
               tabIndex === 0
-                ? "grid min-w-full gap-2 gap-y-2 p-4 sm:grid-cols-2 xl:grid-cols-4"
+                ? "grid min-w-full grid-cols-4 gap-4 gap-y-2 p-4 md:grid-cols-8"
                 : "hidden"
             }
           >
             {topMovies.map((film) => {
-              return <MovieListCard film={film} key={film.imdbID} />;
+              return <MovieCard movie={film} key={film.imdbID} />;
             })}
           </TabPanel>
 
           <TabPanel
             className={
               tabIndex === 1
-                ? "grid min-w-full gap-2 gap-y-2 p-4 sm:grid-cols-2 xl:grid-cols-4"
+                ? "grid min-w-full grid-cols-4 gap-4 gap-y-2 p-4 md:grid-cols-8"
                 : "hidden"
             }
           >
             {topSeries.map((film) => {
-              return <MovieListCard film={film} key={film.imdbID} />;
+              return <MovieCard movie={film} key={film.imdbID} />;
             })}
           </TabPanel>
+
           <TabPanel
             className={
               tabIndex === 2
-                ? "grid  gap-2 gap-y-2 p-4 sm:grid-cols-2 xl:grid-cols-4"
+                ? "grid min-w-full grid-cols-4 gap-4 gap-y-2 p-4 md:grid-cols-8"
                 : "hidden"
             }
           >
             {moviesBucketlist.map((film) => {
-              return <MovieListCard film={film} key={film.imdbID} />;
+              return <MovieCard movie={film} key={film.imdbID} />;
             })}
           </TabPanel>
+
           <TabPanel
             className={
               tabIndex === 3
-                ? "grid gap-2 gap-y-2 p-4 sm:grid-cols-2 xl:grid-cols-4"
+                ? "grid min-w-full grid-cols-4 gap-4 gap-y-2 p-4 md:grid-cols-8"
                 : "hidden"
             }
           >
             {seriesBucketlist.map((film) => {
-              return <MovieListCard film={film} key={film.imdbID} />;
+              return <MovieCard movie={film} key={film.imdbID} />;
             })}
           </TabPanel>
         </div>
