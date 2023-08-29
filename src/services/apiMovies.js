@@ -6,6 +6,8 @@ export async function getMovies(query) {
   );
   const data = await res.json();
 
+  if (data.Response === "False") return [];
+
   return data.Search;
 }
 
@@ -14,6 +16,8 @@ export async function getMovieDetails(imdbID) {
     `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${imdbID}`,
   );
   const data = await res.json();
+
+  if (data.Response === "False") return [];
 
   return data;
 }
