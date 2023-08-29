@@ -7,7 +7,7 @@ import AppLayout from "./ui/AppLayout";
 import SearchLayout from "./ui/SearchLayout";
 import ViewFilmDetails, {
   loader as movieDetailsLoader,
-} from "./components/ViewFilmDetails";
+} from "./pages/ViewFilmDetails";
 
 const router = createBrowserRouter([
   {

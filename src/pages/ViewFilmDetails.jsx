@@ -1,13 +1,13 @@
-import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import { getMovieDetails } from "../services/apiMovies";
-import { FaBookmark, FaCheck, FaHeart, FaMinus, FaStar } from "react-icons/fa";
-import { BiArrowBack } from "react-icons/bi";
+import { FaBookmark, FaHeart, FaMinus, FaStar } from "react-icons/fa";
 import { useList } from "../context/ListContext";
-import LabelDetails from "./LabelDetails";
-import LoadingScreen from "./LoadingScreen";
+import LabelDetails from "../components/LabelDetails";
+import LoadingScreen from "../components/LoadingScreen";
+import BackButton from "../components/BackButton";
+import Button from "../components/Button";
 
 function ViewFilmDetails() {
-  const navigate = useNavigate();
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
@@ -50,10 +50,6 @@ function ViewFilmDetails() {
       ? "My Top Series"
       : seriesBucketlist.find((series) => series.imdbID === imdbID) !==
           undefined && "Series Bucketlist";
-
-  function moveBack() {
-    navigate(-1);
-  }
 
   function handleAddToList(film, type) {
     switch (type) {
@@ -107,14 +103,7 @@ function ViewFilmDetails() {
     <div className="bg-zinc-900 p-10">
       {isLoading && <LoadingScreen />}
 
-      <div>
-        <h1
-          className="flex cursor-pointer items-center text-white duration-100 hover:text-red-500"
-          onClick={moveBack}
-        >
-          <BiArrowBack className="mr-2" /> Back
-        </h1>
-      </div>
+      <BackButton />
 
       <div className="mx-auto flex w-full flex-col space-y-6 px-3 py-10 md:flex-row md:space-x-6 md:space-y-0 md:px-5">
         <div className="">
@@ -170,70 +159,57 @@ function ViewFilmDetails() {
         <div className="space-y-2">
           {listed !== false ? (
             <>
-              <div className="flex w-full cursor-default items-center space-x-2 rounded bg-white px-6 py-3 text-sm font-medium uppercase text-black">
-                <span className="mx-auto flex items-center text-center">
-                  <FaCheck className="mb-px mr-2 text-xs" />
-                  <h1>Added to {listed}</h1>
-                </span>
-              </div>
-
-              <button
-                className="flex w-full cursor-pointer items-center space-x-2 rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white"
-                onClick={() => handleDeleteFromList(imdbID, listed)}
+              <Button
+                handleClick={() => handleDeleteFromList(imdbID, listed)}
+                color="zinc-700"
               >
-                <FaMinus />
-                <h1>Remove from list</h1>
-              </button>
+                <FaMinus className="my-auto mr-2 text-xs" />
+                Remove from list
+              </Button>
             </>
           ) : Type === "movie" ? (
             <>
-              <button
-                className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-                type="button"
-                onClick={() => handleAddToList(filmDetails, "My Top Movies")}
+              <Button
+                handleClick={() =>
+                  handleAddToList(filmDetails, "My Top Movies")
+                }
+                color="red-800"
               >
-                <span className="mx-auto flex items-center text-center">
-                  <FaHeart className="mb-px mr-2 text-xs" />
-                  Add to My Top Movies
-                </span>
-              </button>
-              <button
-                className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-                type="button"
-                onClick={() =>
+                <FaHeart className="my-auto mr-2 text-xs" />
+                Add to My Top Movies
+              </Button>
+
+              <Button
+                handleClick={() =>
                   handleAddToList(filmDetails, "Movies Bucketlist")
                 }
+                color="zinc-700"
               >
-                <span className="mx-auto flex items-center text-center">
-                  <FaBookmark className="mb-px mr-2 text-xs" />
-                  Add to Movie Bucketlist
-                </span>
-              </button>
+                <FaBookmark className="my-auto mr-2 text-xs" />
+                Add to Movie Bucketlist
+              </Button>
             </>
           ) : (
             <>
-              <button
-                className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-                type="button"
-                onClick={() => handleAddToList(filmDetails, "My Top Series")}
+              <Button
+                handleClick={() =>
+                  handleAddToList(filmDetails, "My Top Series")
+                }
+                color="red-800"
               >
-                <span className="mx-auto flex items-center text-center">
-                  <FaHeart className="mb-px mr-2 text-xs" />
-                  Add to My Top Series
-                </span>
-              </button>
-              <button
-                className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
-                type="button"
-                onClick={() =>
+                <FaHeart className="my-auto mr-2 text-xs" />
+                Add to My Top Series
+              </Button>
+
+              <Button
+                handleClick={() =>
                   handleAddToList(filmDetails, "Series Bucketlist")
                 }
+                color="zinc-700"
               >
-                <span className="mx-auto flex items-center text-center">
-                  <FaBookmark className="mb-px mr-2 text-xs" />
-                  Add to Series Bucketlist
-                </span>
-              </button>
+                <FaBookmark className="my-auto mr-2 text-xs" />
+                Add to Series Bucketlist
+              </Button>
             </>
           )}
         </div>
