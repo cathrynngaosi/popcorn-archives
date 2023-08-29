@@ -11,12 +11,14 @@ function SearchResults() {
   const list = results.filter((movie) => movie.Poster !== "N/A");
 
   return (
-    <div>
+    <div className="h-screen bg-zinc-900">
       {isLoading && <LoadingScreen />}
       {results.length > 0 ? (
         <MovieListContainer list={list} type="search" />
       ) : (
-        <h1 className="text-center italic text-white">No matches found!</h1>
+        <h1 className="mt-5 text-center italic text-white">
+          No matches found!
+        </h1>
       )}
     </div>
   );

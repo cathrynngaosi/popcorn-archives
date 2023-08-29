@@ -19,7 +19,7 @@ function MyList() {
       {isLoading && <LoadingScreen />}
 
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-        <TabList className="flex cursor-pointer items-center space-x-5 border-b-[1px] border-neutral-400 p-4 text-neutral-500 ">
+        <TabList className="flex cursor-pointer items-center border-b-[1px] border-neutral-400 p-4 text-center text-neutral-500 md:space-x-5">
           <Tab>
             <Link to="/my-lists/top-movies">My Top Movies</Link>
           </Tab>

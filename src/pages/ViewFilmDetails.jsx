@@ -111,15 +111,17 @@ function ViewFilmDetails() {
         </div>
 
         <div className="w-full space-y-4 text-white md:w-2/4 ">
-          <div className="flex items-start justify-between">
-            <h1 className="text-5xl font-medium tracking-wide ">{Title}</h1>
+          <div className="flex items-start justify-center md:justify-start">
+            <h1 className="text-center text-3xl font-medium tracking-wide md:text-start md:text-5xl ">
+              {Title}
+            </h1>
           </div>
 
-          <div className="flex md:space-x-1">
+          <div className="flex justify-center space-x-1 md:justify-start">
             {Genre.split(",").map((genre) => {
               return (
                 <p
-                  className="rounded-full border border-zinc-500 bg-zinc-500 px-4 py-1 text-[10px] text-slate-950 text-white"
+                  className="rounded-full border border-zinc-500 bg-zinc-500 px-4 py-1 text-[10px] text-white"
                   key={genre}
                 >
                   {genre}
@@ -128,7 +130,7 @@ function ViewFilmDetails() {
             })}
           </div>
 
-          <div className="flex space-x-2 text-sm">
+          <div className="flex justify-center space-x-2 md:justify-start">
             <span> {Year} &bull; </span>
             <span> {Runtime} &bull; </span>
             <div className="flex">
@@ -137,7 +139,7 @@ function ViewFilmDetails() {
             </div>
           </div>
 
-          <div className="border-y py-3 font-thin italic text-red-50">
+          <div className="border-y py-3 text-center font-thin italic text-red-50 md:text-start">
             {Plot}
           </div>
 
@@ -164,7 +166,7 @@ function ViewFilmDetails() {
                 color="zinc-700"
               >
                 <FaMinus className="my-auto mr-2 text-xs" />
-                Remove from list
+                Remove from {listed}
               </Button>
             </>
           ) : Type === "movie" ? (

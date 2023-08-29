@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className="relative flex items-center justify-between bg-red-800 p-4 text-white">
+    <div className="relative z-50 flex items-center justify-between bg-red-800 p-4 text-white">
       <div>
         <NavLink to="/">🍿 Popcorn Archives </NavLink>
       </div>

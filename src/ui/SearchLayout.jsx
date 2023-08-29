@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 
-function AppLayout() {
+function SearchLayout() {
   return (
-    <div className="bg-zinc-900 p-10 ">
+    <div className=" bg-zinc-900 p-10">
       <SearchBar />
       <Outlet />
     </div>
   );
 }
 
-export default AppLayout;
+export default SearchLayout;
