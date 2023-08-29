@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TextTransition from "react-text-transition";
-import Navbar from "./Navbar";
 
 const TEXTS = ["Films", "Movies", "Series"];
 

@@ -1,6 +1,5 @@
-import { useFetcher, useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import { getMovies } from "../services/apiMovies";
-import MovieCard from "../components/MovieCard";
 import LoadingScreen from "../components/LoadingScreen";
 import MovieListContainer from "../components/MovieListContainer";
 
@@ -11,7 +10,7 @@ function SearchResults() {
   const list = results.filter((movie) => movie.Poster !== "N/A");
 
   return (
-    <div className="h-screen bg-zinc-900">
+    <div className="bg-zinc-900">
       {isLoading && <LoadingScreen />}
       {results.length > 0 ? (
         <MovieListContainer list={list} type="search" />

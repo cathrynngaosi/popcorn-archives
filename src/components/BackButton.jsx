@@ -1,5 +1,5 @@
 import { BiArrowBack } from "react-icons/bi";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function BackButton({ page }) {
   const navigate = useNavigate();

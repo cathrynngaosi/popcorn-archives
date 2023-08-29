@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../ui/Navbar";
-import Button from "../components/Button";
 
 function PageNotFound() {
   const navigate = useNavigate();
