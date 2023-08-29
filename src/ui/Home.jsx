@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TextTransition from "react-text-transition";
 
-const TEXTS = ["Movies", "Series", "Films"];
+const TEXTS = ["Films", "Movies", "Series"];
 
 function Home() {
   const [index, setIndex] = useState(0);
@@ -34,16 +34,16 @@ function Home() {
 
         <div className="flex flex-row space-x-2">
           <Link
-            to="/my-lists"
+            to="/search"
             className="rounded-lg bg-red-800 px-8 py-3 uppercase duration-75 hover:scale-105"
           >
-            Create Lists
+            Search Films
           </Link>
           <Link
-            to="/search"
+            to="/my-lists/top-movies"
             className="rounded-lg bg-zinc-900 px-8 py-3 uppercase duration-75 hover:scale-105"
           >
-            Search Films
+            Go to my list
           </Link>
         </div>
       </div>

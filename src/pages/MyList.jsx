@@ -1,16 +1,21 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useList } from "../context/ListContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import { useState } from "react";
 import MovieCard from "../components/MovieCard";
+import LoadingScreen from "../components/LoadingScreen";
 
 function MyList() {
   const { topMovies, topSeries, moviesBucketlist, seriesBucketlist } =
     useList();
   const [tabIndex, setTabIndex] = useState(0);
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   return (
     <>
+      {isLoading && <LoadingScreen />}
+
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList className="flex cursor-pointer items-center space-x-5 border-b-[1px] border-neutral-400 p-4 text-neutral-500 ">
           <Tab className={tabIndex === 0 && "text-white"}>

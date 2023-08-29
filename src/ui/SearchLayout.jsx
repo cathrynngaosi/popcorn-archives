@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 
 function AppLayout() {
   return (
-    <div className="p-10">
+    <div className="bg-zinc-900 p-10 ">
       <SearchBar />
       <Outlet />
     </div>

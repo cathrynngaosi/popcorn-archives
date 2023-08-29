@@ -1,11 +1,15 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import { getMovieDetails } from "../services/apiMovies";
 import { FaBookmark, FaCheck, FaHeart, FaMinus, FaStar } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
 import { useList } from "../context/ListContext";
+import LabelDetails from "./LabelDetails";
+import LoadingScreen from "./LoadingScreen";
 
 function ViewFilmDetails() {
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   const {
     topMovies,
@@ -33,6 +37,8 @@ function ViewFilmDetails() {
     imdbRating,
     imdbID,
   } = useLoaderData();
+
+  const filmDetails = { Title, Poster, imdbID, Year, Runtime, imdbRating };
 
   const listed =
     Type === "movie"
@@ -99,12 +105,14 @@ function ViewFilmDetails() {
 
   return (
     <div className="bg-zinc-900 p-10">
+      {isLoading && <LoadingScreen />}
+
       <div>
         <h1
           className="flex cursor-pointer items-center text-white duration-100 hover:text-red-500"
           onClick={moveBack}
         >
-          <BiArrowBack className="mr-2" /> Back to Search Results
+          <BiArrowBack className="mr-2" /> Back
         </h1>
       </div>
 
@@ -145,48 +153,32 @@ function ViewFilmDetails() {
           </div>
 
           <div className="mt-0 space-y-3 pb-4">
-            <div className="space-x-1">
-              <span className="font-light text-gray-300">Release Date: </span>
-              <span className="font-medium text-stone-50">{Released} </span>
-            </div>
+            <LabelDetails label="Release Date" value={Released} />
 
             {Type === "movie" ? (
               <>
-                <div className="space-x-1">
-                  <span className="font-light text-gray-100">Directed by:</span>
-                  <span className="font-medium text-stone-50">{Director} </span>
-                </div>
-                <div className="space-x-1">
-                  <span className="font-light text-gray-300">Written by: </span>
-                  <span className="font-medium text-stone-50">{Writer} </span>
-                </div>
+                <LabelDetails label="Directed by" value={Director} />
+                <LabelDetails label="Written by" value={Writer} />
               </>
             ) : (
-              <>
-                <div className="space-x-1">
-                  <span className="font-light text-gray-300">Created by: </span>
-                  <span className="font-medium text-stone-50">{Writer} </span>
-                </div>
-              </>
+              <LabelDetails label="Created by" value={Writer} />
             )}
-            <div className="space-x-1">
-              <span className="font-light text-gray-300">Cast: </span>
-              <span className="font-medium text-stone-50">{Actors} </span>
-            </div>
+            <LabelDetails label="Cast" value={Actors} />
           </div>
         </div>
 
         <div className="space-y-2">
           {listed !== false ? (
             <>
-              <div className="flex w-full cursor-default items-center space-x-2 rounded bg-white px-6 py-3 text-sm uppercase text-black">
+              <div className="flex w-full cursor-default items-center space-x-2 rounded bg-white px-6 py-3 text-sm font-medium uppercase text-black">
                 <span className="mx-auto flex items-center text-center">
                   <FaCheck className="mb-px mr-2 text-xs" />
                   <h1>Added to {listed}</h1>
                 </span>
               </div>
+
               <button
-                className="flex w-full cursor-pointer items-center space-x-2 rounded bg-zinc-700 px-6 py-3 text-sm uppercase text-white"
+                className="flex w-full cursor-pointer items-center space-x-2 rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white"
                 onClick={() => handleDeleteFromList(imdbID, listed)}
               >
                 <FaMinus />
@@ -198,18 +190,7 @@ function ViewFilmDetails() {
               <button
                 className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
-                onClick={() =>
-                  handleAddToList(
-                    {
-                      Title,
-                      imdbID,
-                      Year,
-                      Runtime,
-                      imdbRating,
-                    },
-                    "My Top Movies",
-                  )
-                }
+                onClick={() => handleAddToList(filmDetails, "My Top Movies")}
               >
                 <span className="mx-auto flex items-center text-center">
                   <FaHeart className="mb-px mr-2 text-xs" />
@@ -220,16 +201,7 @@ function ViewFilmDetails() {
                 className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddToList(
-                    {
-                      Title,
-                      imdbID,
-                      Year,
-                      Runtime,
-                      imdbRating,
-                    },
-                    "Movies Bucketlist",
-                  )
+                  handleAddToList(filmDetails, "Movies Bucketlist")
                 }
               >
                 <span className="mx-auto flex items-center text-center">
@@ -243,18 +215,7 @@ function ViewFilmDetails() {
               <button
                 className="flex w-full rounded bg-red-800 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
-                onClick={() =>
-                  handleAddToList(
-                    {
-                      Title,
-                      imdbID,
-                      Year,
-                      Runtime,
-                      imdbRating,
-                    },
-                    "My Top Series",
-                  )
-                }
+                onClick={() => handleAddToList(filmDetails, "My Top Series")}
               >
                 <span className="mx-auto flex items-center text-center">
                   <FaHeart className="mb-px mr-2 text-xs" />
@@ -265,16 +226,7 @@ function ViewFilmDetails() {
                 className="flex w-full rounded bg-zinc-700 px-6 py-3 text-sm font-medium uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                 type="button"
                 onClick={() =>
-                  handleAddToList(
-                    {
-                      Title,
-                      imdbID,
-                      Year,
-                      Runtime,
-                      imdbRating,
-                    },
-                    "Series Bucketlist",
-                  )
+                  handleAddToList(filmDetails, "Series Bucketlist")
                 }
               >
                 <span className="mx-auto flex items-center text-center">
