@@ -19,7 +19,7 @@ function MovieCard({ movie }) {
       <img
         src={movie.Poster}
         alt=""
-        className="h-full rounded-lg hover:scale-105"
+        className="w-full rounded-lg hover:scale-105"
       />
     </div>
   );
