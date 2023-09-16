@@ -1,4 +1,4 @@
-const OMDB_API_KEY = "3e7f2dde";
+const OMDB_API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
 export async function getMovies(query) {
   const res = await fetch(
