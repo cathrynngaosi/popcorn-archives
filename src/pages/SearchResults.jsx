@@ -11,7 +11,7 @@ function SearchResults({ params }) {
   return (
     <div className="bg-zinc-900">
       {isLoading && <LoadingScreen />}
-      {!isLoading && !error ? (
+      {movies.length > 0 && !error ? (
         <MovieListContainer list={list} type="search" />
       ) : (
         <h1 className="mt-5 text-center italic text-white">
