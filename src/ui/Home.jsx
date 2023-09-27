@@ -33,7 +33,7 @@ function Home() {
             moments today!
           </h1>
 
-          <div className="flex flex-row space-x-2">
+          <div className="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
             <Link
               to="/search"
               className="rounded-lg bg-red-800 px-8 py-3 uppercase duration-75 hover:scale-105"
