@@ -1,8 +1,20 @@
-# React + Vite
+<h1>Popcorn Archives</h1>
+<p>Popcorn Archives allows users to search for different movies and series and add them to two list categories: favorites and bucket list. All data is fetched with the <strong>OMDB API.</strong> </p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p>🍿 Live demo: <a href="https://popcorn-archives.vercel.app/" target="_blank">popcorn-archives.vercel.app</a></p>
 
-Currently, two official plugins are available:
+<h2>Built with:</h2>
+<ul>
+  <li>React.js</li>
+  <li>Vite</li>
+  <li>Tailwind CSS</li>
+</ul>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h2>Dependencies:</h2>
+<ul>
+  <li>React Dom</li>
+  <li>React Icons</li>
+  <li>React Tabs</li>
+  <li>React Router DOM</li>
+  <li>Redux Text Transition</li>
+</ul>
